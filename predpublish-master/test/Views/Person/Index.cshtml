@@ -1,0 +1,32 @@
+﻿@model test.ViewModels.PersonView
+
+<title>Сотрудники</title>
+<h2>Список сотрудников</h2>
+
+
+<p>
+    @Html.ActionLink("Завести  нового", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>Штрихкод сотрудника</th>
+        <th>  </th>
+        <th>Имя сотрудника</th>
+        
+    </tr>
+
+    @foreach (var item in Model.PersonMds)
+    {
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BarcodePerson)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NamePerson)
+            </td>
+
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Проверка штрихкода";
+}
+
+@using (Html.BeginForm())
+{
+    <p>
+        Поиск ШК: @Html.TextBox("searchString")
+        <input type="submit" value="Поиск" />
+    </p>
+
+    @Html.ValidationMessage("NotValid")
+}
+<p>
+    @ViewBag.Massage
+</p>

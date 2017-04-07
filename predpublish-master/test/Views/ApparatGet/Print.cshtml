@@ -1,0 +1,17 @@
+﻿@model test.ViewModels.ApplicationView
+@{
+//ViewBag.Title = "Слу";
+}
+
+@if (ViewBag.WordDocumentMode == null || !ViewBag.WordDocumentMode)
+{
+    
+
+}
+
+<h1>Сотрудник @Html.DisplayFor(model => model.BarcodePersonGet) - @Html.DisplayFor(model => model.NamePersonGet) получил @Html.DisplayFor(model => model.BarcodeEquipment) (тип) - @Html.DisplayFor(model => model.NameEquipment)  в @Html.DisplayFor(model => model.GetTime) (время выдачи) </h1>
+
+<h1> Сотрудник @Html.DisplayFor(model => model.BarcodePersonSet) -@Html.DisplayFor(model => model.NamePersonSet)  сдал в @Html.DisplayFor(model => model.SetTime) </h1>
+
+<h1>Примечания - @Html.DisplayFor(model => model.Comment)</h1>
+
