@@ -1,0 +1,82 @@
+﻿@model List<test.ViewModels.ApplicationView>
+<title>Оборудование</title>
+<h2>Выданное оборудование</h2>
+
+<table style="border-collapse: separate; border-spacing: 10px;">
+    <tr>
+        <td>@Html.ActionLink("Выдать оборудование", "Create")</td>
+        <td>@Html.ActionLink("Посмотреть архив", "ViewArchive")</td>
+        @*<td>@Html.ActionLink("Вывод на печать", "ExportData")</td>*@
+    </tr>
+</table>
+
+<p>
+
+</p>
+
+
+
+@using (Html.BeginForm())
+{
+    <p>
+        Поиск по коду оборудования: @Html.TextBox("SearchString")
+        <input type="submit" value="Поиск" />
+    </p>
+
+}
+
+<table class="table">
+    <tr>
+        <th>Штрихкод сотрудника</th>
+        <th>Имя сотрудника</th>
+        <th>Штрихкод оборудования</th>
+        <th>Наименование</th>
+        @*<th>Serial Number</th>*@
+        <th>Время выдачи</th>
+        <th>Склад</th>
+        @*<th>Set Time</th>*@
+        @*<th>Comment</th>
+            <th>Get User</th>
+            <th>Set User</th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BarcodePersonGet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NamePersonGet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BarcodeEquipment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameEquipment)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.GetTime)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.DC)
+            </td>
+
+
+            <td>
+                @Html.ActionLink("Сдать оборудование", "SetApparat", new { id = item.BarcodeEquipment, typeA = item.NameEquipment })
+                @*@Html.ActionLink("Details", "Details", new { id = item.BarcodePerson }) |*@
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.BarcodePerson })*@
+            </td>
+        </tr>
+                    }
+
+</table>
+
+
+
+

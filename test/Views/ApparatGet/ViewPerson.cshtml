@@ -1,0 +1,29 @@
+﻿@*@model test.Models.App_PersonModels*@
+
+
+
+<div class="NamePersonAll">
+
+    
+    <p align="left">Пользователь: @ViewBag.Person</p>
+
+    <p style="display: inline-block;" align="left">Щ/К оборудования:</p>
+
+    <p style="display: inline-block;" id="TypicalEquipmentID" align="left">@ViewBag.TypicalEquipmentId</p>
+
+    <p alighn="left">Серийный №: @ViewBag.SerialNumber</p>
+
+    <p alighn="left">Состояние: @ViewBag.Condition</p>
+    
+
+</div>
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

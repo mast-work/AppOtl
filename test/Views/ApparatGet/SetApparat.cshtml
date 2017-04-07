@@ -1,0 +1,118 @@
+﻿@model test.Models.App_ApplicationModels
+
+<title>Сдаем оборудование</title>
+<h2>Сдаём оборудование</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-horizontal">
+        <h4>Сдача оборудования</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.TypeEquipment, "Примечание", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+
+                @*@Html.EditorFor(model => model.TypeEquipment, new { disabled = "disabled"})*@
+
+                @Html.TextBox("TypeEquipment",Model.TypeEquipment, new { @readonly = "readonly" })
+
+                @Html.ValidationMessageFor(model => model.TypeEquipment, "", new { @class = "text-danger" })
+
+            </div>
+
+        </div>
+
+        
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.BarcodePersonSet, "Штрихкод сотрудника", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+
+                @Html.EditorFor(model => model.BarcodePersonSet, new { htmlAttributes = new { @class = "form-control" } })
+
+                @Html.ValidationMessageFor(model => model.BarcodePersonSet, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div id="NamePersonAll">
+            @if (Model != null)
+                {
+                @Html.Partial("ViewPerson")
+            }
+            @*@Html.Partial("ViewPerson")*@
+        </div>
+
+
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Comment, "Примечание", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+
+                @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control" } })
+
+                @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+
+        @Html.CheckBox("cbNew", false)
+        <label for="cbNew">Все верно?</label>
+
+
+
+        <div id="ModelError">
+            @Html.ValidationMessage("NotValid")
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="SetApparat" name="Сдать оборудование" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Вернуться к списку", "Index")
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
+
+<script type="text/javascript">
+
+    $(function f() {
+
+        $('#BarcodePersonSet').change(function () {            // получаем выбранный id
+            var id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("ViewPerson")/' + id,
+                success: function (data) {
+                    // заменяем содержимое присланным частичным представлением
+                    $('#NamePersonAll').html(data);
+                }
+            });
+        });
+    })
+
+</script>
+
+}

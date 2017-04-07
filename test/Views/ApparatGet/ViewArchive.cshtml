@@ -1,0 +1,77 @@
+﻿@model List<test.ViewModels.ApplicationView>
+<title>Оборудование</title>
+<h2>История</h2>
+
+
+@using (Html.BeginForm())
+{
+    <p>
+        Поиск по коду оборудования: @Html.TextBox("SearchString")
+
+        <input type="submit" value="Поиск" />
+    </p>
+
+}
+
+<table class="table">
+    <tr>
+        <th>Штрихкод получившего</th>
+        <th>Кто получил</th>
+        <th>Штрихкод оборудования</th>
+        <th>Наименование</th>
+        <th>Время выдачи</th>
+        <th>Кто сдал</th>
+        <th>Время сдачи</th>
+        <th>Комментарий</th>
+        <th>Склад</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BarcodePersonGet)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.NamePersonGet)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.BarcodeEquipment)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.NameEquipment)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.GetTime)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.NamePersonSet)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.SetTime)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.DC)
+            </td>
+
+
+            <td>
+                @Html.ActionLink("Печать", "PrintDocument", new { id = item.unicumvalue})
+            </td>
+
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,195 @@
+﻿@model test.Models.App_ApplicationModels
+<title>Выдача оборудования</title>
+
+<h2>Выдача оборудования</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Выдача оборудования</h4>
+        <hr/>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.BarcodePersonGet, "Штрихкод сотрудника", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.BarcodePersonGet, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BarcodePersonGet, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div id="NamePersonAll">
+            @if (Model != null)
+            {
+                @Html.Partial("ViewPerson")
+            }
+        </div>
+
+        
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.BarcodeEquipment, "Наименование оборудования", htmlAttributes: new { @class = "control-label col-md-2" })
+
+
+            @Html.RadioButton("TypeEquipment", "РЧ терминал", false, new { @class = "control" }) РЧ терминал
+
+            <br>
+            </br>
+
+            @Html.RadioButton("TypeEquipment", "Радиостанция", false, new { @class = "control" }) Радиостанция
+        
+        </div>
+
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.BarcodeEquipment, "Штрихкод оборудования", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BarcodeEquipment, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BarcodeEquipment, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div id="BarcodeEquipmentAll">
+            @if (Model != null)
+            {
+                @Html.Partial("ViewEquipment")
+            }
+        </div>
+
+
+
+
+        @Html.CheckBox("cbNew", false)
+                <label for="cbNew">Все верно?</label>
+
+
+        <div id="ModelError">
+                @Html.ValidationMessage("NotValid")
+        </div>
+
+        <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" id="Create" name="Выдать" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+}
+
+<div>
+    @Html.ActionLink("Вернуться к списку", "Index")
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
+
+<script type="text/javascript">
+
+    $(function f() {
+
+        $('#BarcodePersonGet').change(function () {            // получаем выбранный id
+            var person = {
+                    BarcodePerson: $(this).val(),
+                    NamePerson: ''
+            }
+
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("ViewPerson")',
+                data: person,
+                success: function (data) {
+                    // заменяем содержимое присланным частичным представлением
+                    $('#NamePersonAll').html(data);
+                    //$('#BarcodePersonGet').val(equipment.BarcodeEquipment);
+                }
+            });
+        });
+    });
+
+    $(function d() {
+
+        $('#BarcodeEquipment').change(function () {            // получаем выбранный id
+            var equipment = {
+                BarcodeEquipment: $(this).val(),
+                NameEquipment: document.querySelector('input[name="TypeEquipment"]:checked').value,
+                SerialNumberEquipment: '',
+                Condition: ''
+            }
+
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("ViewEquipment")',
+                data: equipment,
+                success: function (data) {
+                    // заменяем содержимое присланным частичным представлением
+                    $('#BarcodeEquipmentAll').html(data);
+                    //$('#BarcodePersonGet').val(equipment.BarcodeEquipment);
+                }
+            });
+        });
+    });
+
+    $(function e() {
+
+        $('.control').change(function () {            // получаем выбранный id
+            var equipment = {
+                BarcodeEquipment: document.querySelector('input[name="BarcodeEquipment"]').value,
+                NameEquipment: $(this).val(),
+                SerialNumberEquipment: '',
+                Condition: ''
+            }
+
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("ViewEquipment")',
+                data: equipment,
+                success: function (data) {
+                    // заменяем содержимое присланным частичным представлением
+                    $('#BarcodeEquipmentAll').html(data);
+                    //$('#BarcodePersonGet').val(equipment.BarcodeEquipment);
+                }
+            });
+        });
+    });
+
+
+    $(function z() {
+
+        $('.control').change(function () {            // получаем выбранный id
+            var person = {
+                BarcodePerson: document.querySelector('input[name="BarcodePersonGet"]').value,
+                NamePerson: $(this).val()
+            }
+
+            
+            
+
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("ViewPerson")',
+                data: person,
+                success: function (data) {
+                    // заменяем содержимое присланным частичным представлением
+                    $('#NamePersonAll').html(data);
+                    $('#BarcodeEquipment').val($('#TypicalEquipmentID').html());
+                }
+            });
+        });
+    });
+
+
+
+</script>
+
+}

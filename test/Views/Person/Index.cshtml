@@ -1,0 +1,60 @@
+﻿@model test.ViewModels.PersonView
+
+<title>Сотрудники</title>
+<h2>Список сотрудников</h2>
+
+
+<p>
+    @Html.ActionLink("Завести  нового", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>Штрихкод сотрудника</th>
+        
+        <th>Имя сотрудника</th>
+
+        <th>Склад</th>
+
+        <th>№ ШК терминала</th>
+
+        <th>№ ШК рации</th>
+        
+    </tr>
+
+    @foreach (var item in Model.PersonMds)
+    {
+
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.BarcodePerson)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.NamePerson)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.DC)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.UserProperty1)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.UserProperty2)
+            </td>
+
+
+            <td>
+
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.Id })
+
+            </td>
+
+
+        </tr>
+    }
+
+</table>

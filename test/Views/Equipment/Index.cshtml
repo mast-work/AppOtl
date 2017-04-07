@@ -1,0 +1,40 @@
+﻿@model test.ViewModels.EquipmentView
+<title>Оборудование склада </title>
+<h2>Оборудование</h2>
+
+<p>
+    @Html.ActionLink("Добавить новое оборудование", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>Штрихкод оборудования</th>
+        <th>Наименование</th>
+        <th>Серийный номер</th>
+        <th>Состояние</th>
+        <th>Склад</th>
+    </tr>
+
+    @foreach (var item in Model.EquipmentMds)
+    {
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BarcodeEquipment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameEquipment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SerialNumberEquipment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem=>item.Condition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DC)
+            </td>
+
+        </tr>
+    }
+
+</table>
